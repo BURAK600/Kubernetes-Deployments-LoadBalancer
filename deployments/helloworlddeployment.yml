@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ymldeployment
+  labels:
+    type: deployment-backend
+    app: user-service-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-service
+    
+  template:
+    metadata:
+      name: ymlpodcreate
+      labels:
+        type: back-end
+        app: user-service
+      annotations:
+        owner: "burak özer"
+        create: "13.10.2022"
+    spec:
+      containers:
+       - image: musty1406/helloworldapp:v003
+         name: ymlpodcreate
+         ports:
+          - containerPort: 8090

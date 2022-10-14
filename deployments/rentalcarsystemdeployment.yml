@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carrentalsystem-deployment
+  labels:
+    type: deploy-carrentalsystem
+spec:
+  selector:
+    matchLabels:
+      app: carrentalsystem-app
+  template:
+    metadata:
+      labels:
+        app: carrentalsystem-app
+    spec:
+      containers:
+      - name: carrental-container
+        image: burakozer1/dockerrentalcarsystem:v010
+        ports:
+        - containerPort: 9090
+        env:
+          - name: DBURL
+            valueFrom:
+              secretKeyRef:
+                name: secret-rentalcarsystem
+                key: DBURL
+          - name: DBUSER
+            valueFrom:
+              secretKeyRef:
+                name: secret-rentalcarsystem
+                key: DBUSER
+          - name: DBPASS
+            valueFrom:
+              secretKeyRef:
+                name: secret-rentalcarsystem
+                key: DBPASS
+          - name: SERVERPORT
+            valueFrom:
+              secretKeyRef:
+                name: secret-rentalcarsystem
+                key: SERVERPORT              
